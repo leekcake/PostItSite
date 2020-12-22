@@ -7,12 +7,26 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/sakura.css' %}">
 	<!--===============================================================================================-->
+	
+	<script>
+	
+	</script>
 <body>
 	<h1>
 	Post-it Here
-	<button>Post It</button>
 	<a href="logout"><button>Sign out</button></a>
 	</h1>
-	
+	<form method="POST" action="post" >
+		{% csrf_token %}
+		<input type="text" name="content">
+		<input type="submit" value="Post It">
+	</form>
+	{% if post_list %}
+		{% for post in post_list %}
+			<blockquote>{{post.content}}</blockquote>
+		{% endfor %}
+	{% else %}
+		<blockquote>표시할 포스트잇이 없습니다</blockquote>
+	{% endif %}
 </body>
 </html>

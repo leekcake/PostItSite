@@ -8,13 +8,39 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse
 
+from PostIt.models import PostIt
 
-def main(request):
+
+def main(request: HttpRequest):
     if not request.user.is_authenticated:
         return redirect("login")
 
-    return render(request, 'PostIt/main.html')
+    user: User = request.user
 
+    list = user.postit.all()
+
+    context = {
+        'post_list': list,
+    }
+
+    return render(request, 'PostIt/main.html', context)
+
+
+def post(request: HttpRequest):
+    if not request.user.is_authenticated:
+        return redirect("login")
+
+    if request.method != 'POST':
+        return redirect("./")
+
+    content = request.POST.get('content', '')
+
+    if content == "":
+        return redirect("./")
+
+    PostIt.objects.create(content=content, author=request.user)
+
+    return redirect("./")
 
 def logout(request):
     if not request.user.is_authenticated:
