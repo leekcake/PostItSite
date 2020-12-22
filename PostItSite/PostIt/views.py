@@ -103,8 +103,8 @@ def signup(request: HttpRequest):
             return render(request, 'PostIt/signup.html', context)
 
         user = User.objects.create_user(id, '', password)
+        auth.login(request, user)
 
-        context["message"] = "Signup Complete"
-        return render(request, 'PostIt/signup.html', context)
+        return redirect("./")
     else:
         return render(request, 'PostIt/signup.html')
