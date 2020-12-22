@@ -23,7 +23,11 @@
 	</form>
 	{% if post_list %}
 		{% for post in post_list %}
-			<blockquote>{{post.content}}</blockquote>
+			<blockquote>{{post.content}}<br>
+				<a href="delete/{{post.id}}">
+					<button>Delete</button>
+				</a>
+			</blockquote>
 		{% endfor %}
 	{% else %}
 		<blockquote>표시할 포스트잇이 없습니다</blockquote>

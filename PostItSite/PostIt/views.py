@@ -26,6 +26,17 @@ def main(request: HttpRequest):
     return render(request, 'PostIt/main.html', context)
 
 
+def delete(request: HttpRequest, id):
+    if not request.user.is_authenticated:
+        return redirect("../login")
+
+    user: User = request.user
+
+    PostIt.objects.filter(id=id).delete()
+
+    return redirect('../')
+
+
 def post(request: HttpRequest):
     if not request.user.is_authenticated:
         return redirect("login")
