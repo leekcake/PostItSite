@@ -6,15 +6,25 @@ from django.shortcuts import render, redirect
 
 
 # Create your views here.
+from django.urls import reverse
+
 
 def main(request):
     if not request.user.is_authenticated:
         return redirect("login")
 
-    return HttpResponse("OK")
+    return render(request, 'PostIt/main.html')
 
 
-def login(request):
+def logout(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
+
+    auth.logout(request)
+    return redirect(f"{reverse('login')}?from=logout")
+
+
+def login(request: HttpRequest):
     if request.user.is_authenticated:
         return redirect("./")
 
@@ -27,6 +37,10 @@ def login(request):
             return redirect("./")
 
         context = {"message": "Invalid user or password"}
+        return render(request, 'PostIt/login.html', context)
+
+    if request.GET.get('from', '') == "logout":
+        context = {"message": "Successfully logged out"}
         return render(request, 'PostIt/login.html', context)
 
     return render(request, 'PostIt/login.html')
