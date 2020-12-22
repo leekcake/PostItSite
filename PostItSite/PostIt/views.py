@@ -82,7 +82,7 @@ def signup(request: HttpRequest):
 
         context = {}
 
-        if User.objects.get(username=id) is not None:
+        if User.objects.filter(username=id).exists():
             context["message"] = "Already exist account id"
             return render(request, 'PostIt/signup.html', context)
 
