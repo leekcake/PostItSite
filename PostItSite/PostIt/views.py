@@ -17,7 +17,7 @@ def main(request: HttpRequest):
 
     user: User = request.user
 
-    list = user.postit.all()
+    list = user.postit.all().order_by('-created_at')
 
     context = {
         'post_list': list,
