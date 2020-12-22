@@ -2,7 +2,7 @@
 <html lang="en">
 {% load static %}
 <head>
-	<title>Login</title>
+	<title>Create Account</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -36,7 +36,7 @@
 				<form method="POST" class="login100-form validate-form">
 					{% csrf_token %}
 					<span class="login100-form-title p-b-33">
-						Account Login
+						Create Account
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "">
@@ -53,18 +53,22 @@
 
 					<div class="container-login100-form-btn m-t-20">
 						<button class="login100-form-btn">
-							Sign in
+							Sign up
 						</button>
 					</div>
 
 					<div class="text-center p-t-45 p-b-4">
 						<span class="txt1">
-							Create an account?
+							Already have account?
 						</span>
 
-						<a href="signup" class="txt2 hov1">
-							Sign up
+						<a href="login" class="txt2 hov1">
+							Sign in
 						</a>
+					</div>
+					
+					<div class="text-center">
+						{{message}}
 					</div>
 				</form>
 			</div>
@@ -88,7 +92,7 @@
 <!--===============================================================================================-->
 	<script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
 <!--===============================================================================================-->
-	<script src="{% static 'js/main.js"></script>
+	<script src="{% static 'js/main.js' %}"></script>
 
 </body>
 </html>
